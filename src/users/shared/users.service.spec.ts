@@ -1,0 +1,23 @@
+import { Test, TestingModule } from '@nestjs/testing'
+import { UsersService } from './users.service'
+
+describe('UsersService', () => {
+    let provider: UsersService
+
+    beforeEach(async () => {
+        const module: TestingModule = await Test.createTestingModule({
+            providers: [UsersService]
+        }).compile()
+
+        provider = module.get<UsersService>(UsersService)
+    })
+
+    it('should be defined', () => {
+        expect(provider).toBeDefined()
+    })
+
+    it('must have more than 0 users', async () => {
+        const users = await provider.getAll()
+        expect(users.length).toBeGreaterThan(0)
+    })
+})
